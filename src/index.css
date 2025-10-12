@@ -1,0 +1,37 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+#content {
+    display: grid;
+    gap: 20px;
+    height: 100vh;
+    grid-template-areas:
+        "sideNav"
+        "mainPanel";
+}
+
+.sideNav {
+    grid-area: sideNav;
+    border-radius: 15px;
+    background-color:  #00FFFF;
+}
+
+.mainPanel {
+    grid-area: mainPanel;
+}
+
+@media (width >= 700px) {
+    #content {
+        grid-template-columns: 1fr 4fr;
+        grid-template-areas:
+        "sideNav mainPanel"
+    }
+
+}
