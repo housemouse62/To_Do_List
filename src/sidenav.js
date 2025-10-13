@@ -2,11 +2,10 @@ import { listMaker } from "./home";
 import './sidenav.css';
 
 // Navigation Sidebar
-const sideNavDiv = function() {
-const sideNav = document.querySelector('.sideNav');
+const sideNavDiv = function(container) {
 const buttonContainer = document.createElement('div');
 buttonContainer.className = 'buttonContainer';
-sideNav.append(buttonContainer);
+container.append(buttonContainer);
 
 const allTasks = document.createElement('button');
 allTasks.classList.add('seeTasks', 'allTasks');

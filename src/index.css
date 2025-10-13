@@ -19,7 +19,6 @@ body {
 
 .sideNav {
     grid-area: sideNav;
-    border-radius: 15px;
     background-color:  #00FFFF;
 }
 
@@ -27,11 +26,17 @@ body {
     grid-area: mainPanel;
 }
 
+.sideBar {
+    grid-area: sideBar;
+    background-color:  white;
+    border-left: #00FFFF solid 2px;
+}
+
 @media (width >= 700px) {
     #content {
-        grid-template-columns: 1fr 4fr;
+        grid-template-columns: 1fr 4fr 2fr;
         grid-template-areas:
-        "sideNav mainPanel"
+        "sideNav mainPanel sideBar"
     }
 
 }
