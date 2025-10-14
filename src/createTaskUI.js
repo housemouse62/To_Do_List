@@ -1,4 +1,5 @@
-import './createTask.css';
+import './createTaskUI.css';
+import { taskManager } from './taskData';
 
 const addTaskDisplay = function(mainContainer) {
 mainContainer.innerHTML = '';
@@ -101,7 +102,25 @@ const highPriorityBox = document.createElement('input');
 highPriorityBox.setAttribute('id', 'highPriority');
 highPriorityBox.setAttribute('type', 'checkbox');
 highPriorityBox.setAttribute('name', 'highPriority');
+highPriorityBox.setAttribute('value', 'true');
 
+// add task button
+const addTaskButton = document.createElement('button');
+addTaskButton.className = 'addTaskButton';
+addTaskButton.innerHTML = 'Add Task';
+
+addTaskButton.addEventListener('click', () => {
+    const title = document.querySelector('#taskName').value;
+    const description = document.querySelector('#description').value;
+    const notes = document.querySelector('#notes').value;
+    const project = document.querySelector('#project').value;
+    const dueDate = document.querySelector('#dueDate').value;
+    const priority = document.querySelector('#highPriority').value;
+
+taskManager.addItemToArray(title, description, notes, project, dueDate, priority);
+console.log(taskManager.tasks);
+console.log(taskManager.projects);
+});
 addTaskDisplayDiv.append(
     areaTitle,
     taskNameLabel,
@@ -116,7 +135,8 @@ addTaskDisplayDiv.append(
     dueDateSelector,
     highPriorityLabel,
     highPriorityBox,
-)
+    addTaskButton,
+);
 
 };
 

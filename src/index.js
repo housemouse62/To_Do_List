@@ -2,7 +2,7 @@ import "./index.css";
 import { listMaker } from "./home.js";
 import { greeting } from './lists.js';
 import { sideNavDiv } from "./sidenav.js";
-import { addTaskDisplay } from "./createTask.js";
+import { addTaskDisplay } from "./createTaskUI.js";
 
 
 // Navigation sidebar & main window
