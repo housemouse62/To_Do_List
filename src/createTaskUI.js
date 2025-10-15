@@ -33,6 +33,7 @@ const descriptionInput = document.createElement('input');
 descriptionInput.setAttribute('id', 'description');
 descriptionInput.setAttribute('type', 'text');
 descriptionInput.setAttribute('name', 'description');
+descriptionInput.value = '';
 
 // notes
 const notesLabel = document.createElement('label');
@@ -151,16 +152,35 @@ addTaskButton.className = 'addTaskButton';
 addTaskButton.innerHTML = 'Add Task';
 
 addTaskButton.addEventListener('click', () => {
-    const title = document.querySelector('#taskName').value;
-    const description = document.querySelector('#description').value;
-    const notes = document.querySelector('#notes').value;
-    const project = document.querySelector('#project').value;
-    const dueDate = document.querySelector('#dueDate').value;
-    const priority = document.querySelector('#highPriority').value;
+    const titleInput = document.querySelector('#taskName');
+    const descriptionInput = document.querySelector('#description');
+    const notesInput = document.querySelector('#notes');
+    const projectInput = document.querySelector('#addNewProject');
+    const dueDateInput = document.querySelector('#dueDate');
+    const priorityInput = document.querySelector('#highPriority');
+    const existing = document.querySelector('#existing');
+    const projectSelect = document.querySelector('#projectDropDown');
+    const addNewProjectField = document.querySelector('#addNewProject');
+
+    const title = titleInput.value;
+    const description = descriptionInput.value;
+    const notes = notesInput.value;
+    const project = projectInput.value;
+    const dueDate = dueDateInput.value;
+    const priority = priorityInput.value;
 
 taskManager.addTask(title, description, notes, project, dueDate, priority);
 console.log(taskManager.tasks);
 console.log(taskManager.projects);
+titleInput.value = '';
+descriptionInput.value = '';
+notesInput.value = '';
+projectInput.value = '';
+dueDateInput.value = '';
+priorityInput.checked = false;
+existing.checked = false;
+projectSelect.style.visibility = 'hidden';
+addNewProjectField.style.visibility = 'hidden';
 });
 addTaskDisplayDiv.append(
     areaTitle,
