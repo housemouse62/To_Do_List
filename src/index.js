@@ -3,6 +3,7 @@ import { listMaker } from "./home.js";
 import { greeting } from './lists.js';
 import { sideNavDiv } from "./sidenav.js";
 import { addTaskDisplay } from "./createTaskUI.js";
+import { taskManager } from "./taskData.js";
 
 
 // Navigation sidebar & main window
@@ -20,6 +21,10 @@ content.append(
     sideBar,
 );
 
+taskManager.addProject('hello');
+taskManager.addTask("big project", "it's going to be huge", "starts really soon", 'non', 27-10-1999, true)
+console.log(taskManager.projects)
+console.log(taskManager.tasks)
 sideNavDiv(sideNav);
 addTaskDisplay(sideBar);
 listMaker(mainPanel)

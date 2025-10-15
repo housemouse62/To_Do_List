@@ -1,3 +1,5 @@
+"use strict";
+
 class Project {
     constructor(name) {
         this.name = name;
@@ -33,24 +35,19 @@ class TaskManager {
         return newProject;
     }
 
-    addItemToArray(title, description, notes, project, dueDate, priority) {
+    addTask(title, description, notes, project, dueDate, priority) {
         const newTask = new ToDoItem(title, description, notes, project, dueDate, priority)
+        console.log(project)
         this.tasks.push(newTask);
 
-        if (project.ame && projectName !== 'none') {
-            const project = this.projects.find(p => p.name === projectName);
-            if (project) project.addTast(task);
+        if (project && project !== 'none') {
+            console.log(this.projects)
+            const projectName = this.projects.find(p => p.name === project);
+            if (projectName) projectName.addTask(newTask);
         }
-        return task;
-}
+        return newTask;
+} 
 }
 
 export const taskManager = new TaskManager();
-// List Builder
-//class BuildList {
- //   constructor() {
- //       this.items = [];
-//  }
-//};
-
-//export const taskList = new BuildList();
+console.log(taskManager.projects)

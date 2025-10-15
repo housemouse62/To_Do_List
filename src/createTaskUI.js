@@ -44,44 +44,80 @@ notesInput.setAttribute('id', 'notes');
 notesInput.setAttribute('type', 'text');
 notesInput.setAttribute('name', 'notes');
 
-// existing project selection
-const projectLabel = document.createElement('label');
-projectLabel.setAttribute('for', 'project');
-projectLabel.innerHTML = 'Part of an Existing Project?';
+// existing project checkbox
+const existingLabel = document.createElement('label');
+existingLabel.setAttribute('for', 'existing');
+existingLabel.innerHTML = "Part of a Project?";
 
+const existingProject = document.createElement('input');
+existingProject.setAttribute('id', 'existing');
+existingProject.setAttribute('type', 'checkbox');
+existingProject.setAttribute('value', 'existing');
+existingProject.setAttribute('name', 'existing');
+
+// existing project selection drop down
 const projectSelect = document.createElement('select');
-projectSelect.setAttribute('id', 'project');
-projectSelect.setAttribute('name', 'project');
+projectSelect.className = 'projectDropDown';
+projectSelect.setAttribute('id', 'projectDropDown');
+projectSelect.setAttribute('name', 'projectDropDown');
+projectSelect.style.visibility = 'hidden';
 
 const newProjectsArray = [
     {
-    id : -1,
-    projectName : 'No'
+    id : '',
+    projectName : 'Please Select'
     },
     {
     id : 0,
-    projectName : 'Project 1'
+    projectName : 'New Project'
     },
     {
     id : 1,
-    projectName : 'Project 2'
+    projectName : 'Project 1'
     },
     {
     id : 2,
-    projectName : 'Project 3'
+    projectName : 'Project 2'
     },
     ];
+
  function addProjectOptions(projectsArray) {
     let length = Object.keys(projectsArray).length;
    for (let i = 0; i < length; i++) {
-    console.log(projectsArray[1])
         const option = document.createElement('option');
         option.value = projectsArray[i].id;
         option.textContent = projectsArray[i].projectName;
         projectSelect.appendChild(option);
    }
  }
+
  addProjectOptions(newProjectsArray);
+
+// add new project name
+const addNewProjectField = document.createElement('input');
+addNewProjectField.setAttribute('id', 'addNewProject');
+addNewProjectField.setAttribute('type', 'text');
+addNewProjectField.setAttribute('name', 'addNewProject');
+addNewProjectField.placeholder = 'new project name';
+addNewProjectField.style.visibility = 'hidden';
+
+//logic to show/hide addNewProjectField
+// const dropSelection = document.querySelector('projectDropDown')
+// dropSelection.addEventListener('change', () => {
+//    // console.log(${event.target.id})
+//    console.log('hello world')
+// })
+//if newProjectsArray[1])
+
+ // show/hide project drop down logic
+existingProject.addEventListener('change', () => {
+   
+    if (existingProject.checked) {
+        projectSelect.style.visibility = 'visible';
+    } else {
+        projectSelect.style.visibility = 'hidden';
+    };
+});
 
 // due date
 const dueDateLabel = document.createElement('label');
@@ -117,7 +153,7 @@ addTaskButton.addEventListener('click', () => {
     const dueDate = document.querySelector('#dueDate').value;
     const priority = document.querySelector('#highPriority').value;
 
-taskManager.addItemToArray(title, description, notes, project, dueDate, priority);
+taskManager.addTask(title, description, notes, project, dueDate, priority);
 console.log(taskManager.tasks);
 console.log(taskManager.projects);
 });
@@ -129,8 +165,10 @@ addTaskDisplayDiv.append(
     descriptionInput,
     notesLabel,
     notesInput,
-    projectLabel,
+    existingLabel,
+    existingProject,
     projectSelect,
+    addNewProjectField,
     dueDateLabel,
     dueDateSelector,
     highPriorityLabel,
