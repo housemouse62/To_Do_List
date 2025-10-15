@@ -102,7 +102,13 @@ addNewProjectField.placeholder = 'new project name';
 addNewProjectField.style.visibility = 'hidden';
 
 //logic to show/hide addNewProjectField
-// const dropSelection = document.querySelector('projectDropDown')
+projectSelect.addEventListener("change", (event) => {
+    if (`${event.target.value}` === '0') {
+        addNewProjectField.style.visibility = 'visible'
+    } else {
+        addNewProjectField.style.visibility = 'hidden'
+    }
+})
 // dropSelection.addEventListener('change', () => {
 //    // console.log(${event.target.id})
 //    console.log('hello world')
@@ -111,7 +117,6 @@ addNewProjectField.style.visibility = 'hidden';
 
  // show/hide project drop down logic
 existingProject.addEventListener('change', () => {
-   
     if (existingProject.checked) {
         projectSelect.style.visibility = 'visible';
     } else {
