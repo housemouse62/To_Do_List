@@ -1,7 +1,7 @@
-import "./home.css";
+import "./displayUI.css";
 import { taskManager } from "./taskData";
 
-const listMaker = function(mainContainer) {
+const showAllTasks = function(mainContainer) {
     mainContainer.innerHTML = '';
 
 // Div for List of Items Display
@@ -30,7 +30,32 @@ taskManager.tasks.forEach((item, index) => {
     });
 };
 
-export { listMaker };
+const showProjects = function(mainContainer) {
+    mainContainer.innerHTML = '';
+
+// Div for List of Items Display
+const projectListDiv = document.createElement('div');
+    projectListDiv.className = 'projectListDiv';
+    mainContainer.append(projectListDiv);
+
+taskManager.projects.forEach((item, index) => {
+    const projectListItemCard = document.createElement('div');
+    projectListItemCard.className = 'projectListItemCard';
+    projectListItemCard.setAttribute('id', `card${index + 1}`);
+
+    const projectListItemTitle = document.createElement('h3');
+    projectListItemTitle.className = 'projectListItemTitle';
+    projectListItemTitle.textContent = `${item.name}`;
+
+    projectListDiv.append(projectListItemCard);
+    projectListItemCard.append(
+        projectListItemTitle,
+    );
+    });
+};
+
+export { showAllTasks };
+export { showProjects };
 
 
 // const defaultList = new buildList();

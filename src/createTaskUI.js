@@ -63,36 +63,33 @@ projectSelect.setAttribute('id', 'projectDropDown');
 projectSelect.setAttribute('name', 'projectDropDown');
 projectSelect.style.visibility = 'hidden';
 
-const newProjectsArray = [
-    {
-    id : '',
-    projectName : 'Please Select'
-    },
-    {
-    id : 0,
-    projectName : 'New Project'
-    },
-    {
-    id : 1,
-    projectName : 'Project 1'
-    },
-    {
-    id : 2,
-    projectName : 'Project 2'
-    },
+ function addProjectOptions() {
+    projectSelect.innerHTML = '';
+
+    const defaultOptions = [
+        { id: '', projectName: 'Please Select' },
+        { id: '0', projectName: 'New Project' }
     ];
 
- function addProjectOptions(projectsArray) {
-    let length = Object.keys(projectsArray).length;
-   for (let i = 0; i < length; i++) {
+    defaultOptions.forEach((project) => {
         const option = document.createElement('option');
-        option.value = projectsArray[i].id;
-        option.textContent = projectsArray[i].projectName;
-        projectSelect.appendChild(option);
-   }
+        option.id = project.id;
+        option.value = project.projectName;
+        option.textContent = project.projectName;
+        projectSelect.append(option);
+        
+    });
+
+    taskManager.projects.forEach((project) => {
+        const option = document.createElement('option');
+        option.id = project.id;
+        option.value = project.name;
+        option.textContent = project.name;
+        projectSelect.append(option);
+    });
  }
 
- addProjectOptions(newProjectsArray);
+ addProjectOptions();
 
 // add new project name
 const addNewProjectField = document.createElement('input');
@@ -104,17 +101,12 @@ addNewProjectField.style.visibility = 'hidden';
 
 //logic to show/hide addNewProjectField
 projectSelect.addEventListener("change", (event) => {
-    if (`${event.target.value}` === '0') {
+    if (`${event.target.value  }` === 'New Project') {
         addNewProjectField.style.visibility = 'visible'
     } else {
         addNewProjectField.style.visibility = 'hidden'
     }
 })
-// dropSelection.addEventListener('change', () => {
-//    // console.log(${event.target.id})
-//    console.log('hello world')
-// })
-//if newProjectsArray[1])
 
  // show/hide project drop down logic
 existingProject.addEventListener('change', () => {
@@ -152,36 +144,57 @@ addTaskButton.className = 'addTaskButton';
 addTaskButton.innerHTML = 'Add Task';
 
 addTaskButton.addEventListener('click', () => {
-    const titleInput = document.querySelector('#taskName');
-    const descriptionInput = document.querySelector('#description');
-    const notesInput = document.querySelector('#notes');
-    const projectInput = document.querySelector('#addNewProject');
-    const dueDateInput = document.querySelector('#dueDate');
-    const priorityInput = document.querySelector('#highPriority');
-    const existing = document.querySelector('#existing');
-    const projectSelect = document.querySelector('#projectDropDown');
-    const addNewProjectField = document.querySelector('#addNewProject');
+    const title = taskNameInput.value.trim();
+    const description = descriptionInput.value.trim();
+    const notes = notesInput.value.trim();
+    const dueDate = dueDateSelector.value;
+    const priority = highPriorityBox.value;
+    let project;
+   // const projectInput = document.querySelector('#addNewProject');
+  //  const existing = document.querySelector('#existing');
+   // const addNewProjectField = document.querySelector('#addNewProject');
 
-    const title = titleInput.value;
-    const description = descriptionInput.value;
-    const notes = notesInput.value;
-    const project = projectInput.value;
-    const dueDate = dueDateInput.value;
-    const priority = priorityInput.value;
+ //   const projectSelection = projectSelect.value;
+  //  console.log(projectSelection);
+    
+    
+    
+  //  const project = projectInput.value;
+    console.log(project);
+    
+    
+    if (projectSelect.value === 'Please Select') {
+        alert('Please choose a project or create a new one');
+        return;
+    }
 
-taskManager.addTask(title, description, notes, project, dueDate, priority);
+
+// adds project to projects array
+if (projectSelect.value === 'New Project' && addNewProjectField.value.trim() !== '') {
+    const newProject = taskManager.addProject(addNewProjectField.value.trim());
+    project = newProject.name;
+    } else {
+    project = projectSelection.value;
+    }
+
+// adds task to tasks array
+    taskManager.addTask(title, description, notes, project, dueDate, priority);
+
 console.log(taskManager.tasks);
 console.log(taskManager.projects);
-titleInput.value = '';
+
+// resets all fields/dropdown upon submission
+taskNameInput.value = '';
 descriptionInput.value = '';
 notesInput.value = '';
-projectInput.value = '';
-dueDateInput.value = '';
-priorityInput.checked = false;
-existing.checked = false;
+//projectInput.value = '';
+dueDateSelector.value = '';
+highPriorityBox.checked = false;
+//existing.checked = false;
 projectSelect.style.visibility = 'hidden';
 addNewProjectField.style.visibility = 'hidden';
-});
+addProjectOptions();
+// append label & fields
 addTaskDisplayDiv.append(
     areaTitle,
     taskNameLabel,
@@ -199,8 +212,12 @@ addTaskDisplayDiv.append(
     highPriorityLabel,
     highPriorityBox,
     addTaskButton,
-);
+)
+})
 
-};
+}
+
+;
+
 
 export { addTaskDisplay };

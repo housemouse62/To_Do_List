@@ -1,4 +1,4 @@
-import { listMaker } from "./home";
+import { showAllTasks, showProjects } from "./displayUI";
 import './sidenav.css';
 
 // Navigation Sidebar
@@ -16,15 +16,27 @@ nextSeven.textContent = 'Next 7 Days';
 const nextMonth = document.createElement('button');
 nextMonth.classList.add('seeTasks', 'nextMonth');
 nextMonth.textContent = 'Next Month';
- 
+const space = document.createElement('div');
+space.className = 'space';
+const projectsButton = document.createElement('button');
+projectsButton.classList.add('seeTasks', 'projectsButton');
+projectsButton.textContent = "Projects";
+
 buttonContainer.append(
     allTasks,
     nextSeven,
-    nextMonth);
+    nextMonth,
+    space,
+    projectsButton);
 
 allTasks.addEventListener('click', () => {
     const mainPanel = document.querySelector('.mainPanel')
-    listMaker(mainPanel);
+    showAllTasks(mainPanel);
+})
+
+projectsButton.addEventListener('click', () => {
+    const mainPanel = document.querySelector('.mainPanel')
+    showProjects(mainPanel);
 })
 };
 

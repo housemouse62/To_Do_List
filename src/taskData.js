@@ -1,8 +1,11 @@
 "use strict";
 
+import { addTaskDisplay } from "./createTaskUI";
+
 class Project {
-    constructor(name) {
+    constructor(name, id = crypto.randomUUID()) {
         this.name = name;
+        this.id = id;
         this.tasks = [];
     }
 
@@ -43,6 +46,7 @@ class TaskManager {
         if (project && project !== 'none') {
             console.log(this.projects)
             const projectName = this.projects.find(p => p.name === project);
+            console.log(projectName)
             if (projectName) projectName.addTask(newTask);
         }
         return newTask;
@@ -50,4 +54,7 @@ class TaskManager {
 }
 
 export const taskManager = new TaskManager();
+taskManager.addProject('newProject')
+taskManager.addProject('yup')
+console.log(`find a project: ${taskManager.projects[1].name}`)
 console.log(taskManager.projects)

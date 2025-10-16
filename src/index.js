@@ -1,5 +1,6 @@
 import "./index.css";
-import { listMaker } from "./home.js";
+import { showAllTasks } from "./displayUI.js";
+import { showProjects } from "./displayUI.js";
 import { greeting } from './lists.js';
 import { sideNavDiv } from "./sidenav.js";
 import { addTaskDisplay } from "./createTaskUI.js";
@@ -27,7 +28,7 @@ console.log(taskManager.projects)
 console.log(taskManager.tasks)
 sideNavDiv(sideNav);
 addTaskDisplay(sideBar);
-listMaker(mainPanel)
+showAllTasks(mainPanel);
 
 
 
