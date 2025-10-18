@@ -23,7 +23,7 @@ content.append(
 );
 
 taskManager.addProject('hello');
-taskManager.addTask("big project", "it's going to be huge", "starts really soon", 'non', 27-10-1999, true)
+taskManager.addTask("big project", "it's going to be huge", "starts really soon", 'here we go', '27-10-1999', true)
 console.log(taskManager.projects)
 console.log(taskManager.tasks)
 sideNavDiv(sideNav);

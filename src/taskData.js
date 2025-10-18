@@ -40,15 +40,23 @@ class TaskManager {
 
     addTask(title, description, notes, project, dueDate, priority) {
         const newTask = new ToDoItem(title, description, notes, project, dueDate, priority)
-        console.log(project)
         this.tasks.push(newTask);
 
         if (project && project !== 'none') {
-            console.log(this.projects)
-            const projectName = this.projects.find(p => p.name === project);
-            console.log(projectName)
-            if (projectName) projectName.addTask(newTask);
+            console.log(`looking for project: ${project}`);
+            console.log("current projects:", this.projects.map(p => p.name));
+
+        let projectObj = this.projects.find(p => p.name === project);
+
+        if (!projectObj) {
+            projectObj = this.addProject(project);
+            console.log(`Created new project: "${projectObj.name}" (id: ${projectObj.id})`);
         }
+
+        if (projectObj && typeof projectObj.addTask === 'function') {
+            projectObj.addTask(newTask);
+            console.log(`Task "${title}" added to project "${projectObj.name}"`);
+        } }
         return newTask;
 } 
 }

@@ -1,4 +1,5 @@
 import './createTaskUI.css';
+import { showAllTasks } from './displayUI';
 import { taskManager } from './taskData';
 
 const addTaskDisplay = function(mainContainer) {
@@ -154,8 +155,8 @@ addTaskButton.addEventListener('click', () => {
   //  const existing = document.querySelector('#existing');
    // const addNewProjectField = document.querySelector('#addNewProject');
 
- //   const projectSelection = projectSelect.value;
-  //  console.log(projectSelection);
+  const projectSelection = projectSelect.value;
+  console.log(projectSelection);
     
     
     
@@ -163,10 +164,10 @@ addTaskButton.addEventListener('click', () => {
     console.log(project);
     
     
-    if (projectSelect.value === 'Please Select') {
-        alert('Please choose a project or create a new one');
-        return;
-    }
+    // if (projectSelect.value === 'Please Select') {
+    //     alert('Please choose a project or create a new one');
+    //     return;
+    // }
 
 
 // adds project to projects array
@@ -193,7 +194,12 @@ highPriorityBox.checked = false;
 //existing.checked = false;
 projectSelect.style.visibility = 'hidden';
 addNewProjectField.style.visibility = 'hidden';
+
+ const mainPanel = document.querySelector('.mainPanel')
+    showAllTasks(mainPanel);
+})
 addProjectOptions();
+
 // append label & fields
 addTaskDisplayDiv.append(
     areaTitle,
@@ -213,7 +219,8 @@ addTaskDisplayDiv.append(
     highPriorityBox,
     addTaskButton,
 )
-})
+
+
 
 }
 

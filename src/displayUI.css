@@ -1,4 +1,13 @@
 .itemCard {
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    width: auto;
+    border: 1px solid black;
+}
+
+.info {
     display: flex;
+    justify-content: center;
     align-items: center;
 }

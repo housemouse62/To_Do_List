@@ -9,17 +9,32 @@ const listDiv = document.createElement('div');
     listDiv.className = 'listDiv';
     mainContainer.append(listDiv);
 
+// Create Header for Display
+const headerCard = document.createElement('div');
+    headerCard.classList.add('itemCard', 'headerCard');
+    listDiv.append(headerCard);
+
+const headerTitle = document.createElement('h2');
+    headerTitle.classList.add('itemTitle', 'headerTitle');
+    headerTitle.textContent = 'Task';
+    headerCard.append(headerTitle);
+
+const headerDate = document.createElement('h2');
+    headerDate.classList.add('itemDate', 'headerDate');
+    headerDate.textContent = 'Do By:'
+    headerCard.append(headerDate);
+
 taskManager.tasks.forEach((item, index) => {
     const listItemCard = document.createElement('div');
-    listItemCard.className = 'itemCard';
+    listItemCard.classList.add('itemCard');
     listItemCard.setAttribute('id', `card${index + 1}`);
 
     const listItemTitle = document.createElement('h3');
-    listItemTitle.className = 'itemTitle';
+    listItemTitle.classList.add('itemTitle', 'info');
     listItemTitle.textContent = `${item.title}`;
 
     const itemDate = document.createElement('h4')
-    itemDate.className = 'itemDate';
+    itemDate.classList.add('itemDate', 'info');
     itemDate.textContent = `${item.dueDate}`
 
     listDiv.append(listItemCard);
