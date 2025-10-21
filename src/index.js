@@ -22,8 +22,11 @@ content.append(
     sideBar,
 );
 
-taskManager.addProject('hello');
-taskManager.addTask("big project", "it's going to be huge", "starts really soon", 'here we go', '27-10-1999', true)
+taskManager.addTask('Eat Breakfast', 'Oats & Nuts', 'With oat milk?', 'This Morning', '2025-10-20')
+taskManager.addTask('Check Bike', 'Tires inflated?', 'Ready to go?',  'This Morning', '2025-10-20')
+taskManager.addTask('Head out to work', 'By 8:15', 'Or 8:20 if possible', 'This Morning', '2025-10-20')
+taskManager.addTask('Go Running', 'After Work', 'If possible', 'This Afternoon', '2025-10-20')
+
 console.log(taskManager.projects)
 console.log(taskManager.tasks)
 sideNavDiv(sideNav);

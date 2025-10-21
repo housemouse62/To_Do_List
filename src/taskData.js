@@ -16,11 +16,12 @@ class Project {
 
 // Item Creator
 class ToDoItem {
-    constructor(title, description, notes, project, dueDate, priority) {
+    constructor(title, description, notes, projectID, dueDate, priority, id = crypto.randomUUID()) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.notes = notes;
-        this.project = project;
+        this.projectID = projectID;
         this.dueDate = dueDate;
         this.priority = priority;
     }
@@ -38,31 +39,31 @@ class TaskManager {
         return newProject;
     }
 
-    addTask(title, description, notes, project, dueDate, priority) {
-        const newTask = new ToDoItem(title, description, notes, project, dueDate, priority)
-        this.tasks.push(newTask);
+    addTask(title, description, notes, projectName, dueDate, priority) {
+        let projectObj = this.projects.find(p => p.name === projectName);
 
-        if (project && project !== 'none') {
-            console.log(`looking for project: ${project}`);
-            console.log("current projects:", this.projects.map(p => p.name));
-
-        let projectObj = this.projects.find(p => p.name === project);
-
-        if (!projectObj) {
-            projectObj = this.addProject(project);
+        if (!projectObj && projectName && projectName !== 'none') {
+            projectObj = this.addProject(projectName);
             console.log(`Created new project: "${projectObj.name}" (id: ${projectObj.id})`);
         }
+        const newTask = new ToDoItem(
+            title, 
+            description, 
+            notes, 
+            projectObj ? projectObj.id : null,
+            dueDate,
+            priority
+        );
 
-        if (projectObj && typeof projectObj.addTask === 'function') {
+        this.tasks.push(newTask);
+
+        if (projectObj) {
             projectObj.addTask(newTask);
             console.log(`Task "${title}" added to project "${projectObj.name}"`);
-        } }
+        }
+
         return newTask;
 } 
 }
 
 export const taskManager = new TaskManager();
-taskManager.addProject('newProject')
-taskManager.addProject('yup')
-console.log(`find a project: ${taskManager.projects[1].name}`)
-console.log(taskManager.projects)

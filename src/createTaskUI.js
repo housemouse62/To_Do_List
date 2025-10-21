@@ -82,11 +82,13 @@ projectSelect.style.visibility = 'hidden';
     });
 
     taskManager.projects.forEach((project) => {
+    if (![...projectSelect.options].some(opt => opt.value === project.name)) {
         const option = document.createElement('option');
         option.id = project.id;
         option.value = project.name;
         option.textContent = project.name;
         projectSelect.append(option);
+    }
     });
  }
 
@@ -150,36 +152,23 @@ addTaskButton.addEventListener('click', () => {
     const notes = notesInput.value.trim();
     const dueDate = dueDateSelector.value;
     const priority = highPriorityBox.value;
-    let project;
-   // const projectInput = document.querySelector('#addNewProject');
-  //  const existing = document.querySelector('#existing');
-   // const addNewProjectField = document.querySelector('#addNewProject');
 
-  const projectSelection = projectSelect.value;
-  console.log(projectSelection);
+    let project = null;
+    const projectSelection = projectSelect.value;
     
-    
-    
-  //  const project = projectInput.value;
-    console.log(project);
-    
-    
-    // if (projectSelect.value === 'Please Select') {
-    //     alert('Please choose a project or create a new one');
-    //     return;
-    // }
-
-
-// adds project to projects array
+// create new project if selection
 if (projectSelect.value === 'New Project' && addNewProjectField.value.trim() !== '') {
     const newProject = taskManager.addProject(addNewProjectField.value.trim());
     project = newProject.name;
-    } else {
-    project = projectSelection.value;
+    } else if (projectSelection && projectSelection !== 'Please Select') {
+    project = projectSelection;
     }
 
 // adds task to tasks array
     taskManager.addTask(title, description, notes, project, dueDate, priority);
+
+// refresh dropdown menu
+    addProjectOptions();
 
 console.log(taskManager.tasks);
 console.log(taskManager.projects);
@@ -191,14 +180,14 @@ notesInput.value = '';
 //projectInput.value = '';
 dueDateSelector.value = '';
 highPriorityBox.checked = false;
-//existing.checked = false;
+existingProject.checked = false;
 projectSelect.style.visibility = 'hidden';
 addNewProjectField.style.visibility = 'hidden';
 
  const mainPanel = document.querySelector('.mainPanel')
     showAllTasks(mainPanel);
 })
-addProjectOptions();
+
 
 // append label & fields
 addTaskDisplayDiv.append(
@@ -219,12 +208,7 @@ addTaskDisplayDiv.append(
     highPriorityBox,
     addTaskButton,
 )
-
-
-
-}
-
-;
+};
 
 
 export { addTaskDisplay };

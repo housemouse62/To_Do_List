@@ -3,11 +3,74 @@
     justify-items: center;
     grid-template-columns: 1fr 1fr;
     width: auto;
-    border: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.headerCard {
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
 }
 
 .info {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.projectOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1000;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
+}
+
+.projectContent {
+
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: white;
+   
+}
+
+.itemOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0; right: 0; bottom: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1000;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+    transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
+}
+
+.itemContent {
+
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: white;
+   
 }

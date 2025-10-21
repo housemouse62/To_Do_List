@@ -24,6 +24,7 @@ body {
 
 .mainPanel {
     grid-area: mainPanel;
+    margin-top: 15px;
 }
 
 .sideBar {
