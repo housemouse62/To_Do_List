@@ -19,6 +19,16 @@
     align-items: center;
 }
 
+.projectContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.projectListDiv {
+    display: flex;
+    flex-direction: column;
+}
+
 .projectOverlay {
     display: flex;
     align-items: center;
@@ -35,17 +45,16 @@
     pointer-events: all;
     transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
 }
-
+/*
 .projectContent {
-
     max-width: 600px;
     width: 90%;
     max-height: 90vh;
     padding: 2rem;
     overflow-y: auto;
     background-color: white;
-   
 }
+*/
 
 .itemOverlay {
     display: flex;

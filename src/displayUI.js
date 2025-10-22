@@ -28,9 +28,13 @@ const headerDate = document.createElement('h2');
 
 taskManager.tasks.forEach((item, index) => {
     const listItemCard = document.createElement('div');
-    listItemCard.addEventListener('click', () => showClickedItem(item))
     listItemCard.classList.add('itemCard');
     listItemCard.setAttribute('id', `card${index + 1}`);
+    listItemCard.dataset.id = item.id;
+    listItemCard.addEventListener('click', (event) => {
+        const clickedTaskID = event.currentTarget.dataset.id;
+        showClickedItem(clickedTaskID)
+    })
 
     const listItemTitle = document.createElement('h3');
     listItemTitle.classList.add('itemTitle', 'info');
@@ -52,10 +56,15 @@ taskManager.tasks.forEach((item, index) => {
 const showProjects = function(mainContainer) {
     mainContainer.innerHTML = '';
 
+// Container for 2 column project div
+const projectContainer = document.createElement('div');
+    projectContainer.className = 'projectContainer';
+    mainContainer.append(projectContainer);
+
 // Div for List of Projects Display
 const projectListDiv = document.createElement('div');
     projectListDiv.className = 'projectListDiv';
-    mainContainer.append(projectListDiv);
+    projectContainer.append(projectListDiv);
 
 //Display the projects
 taskManager.projects.forEach((item, index) => {
@@ -64,7 +73,11 @@ taskManager.projects.forEach((item, index) => {
     projectListItemCard.dataset.projectID = item.id;
     projectListItemCard.addEventListener('click', (event) => {
         const clickedID = event.currentTarget.dataset.projectID;
-        showClickedProject(clickedID)
+        const existingContent = document.querySelector('.projectContent');
+        if (existingContent) {
+            existingContent.remove();
+        };
+        showProjectTasks(clickedID, projectContainer)
     })
     projectListItemCard.setAttribute('id', `card${index + 1}`);
 
@@ -79,52 +92,98 @@ taskManager.projects.forEach((item, index) => {
     });
 };
 
-function showClickedProject(clickedID) {
-const projectOverlay = document.createElement('div');
-projectOverlay.classList.add('projectOverlay', 'popupOverlay');
-const projectContent = document.createElement('div');
-const ul = document.createElement('ul');
+// Display Tasks For A Clicked Project
+function showProjectTasks(clickedID, projectContainer) {
+    
+// const projectOverlay = document.createElement('div');
+// projectOverlay.classList.add('projectOverlay', 'popupOverlay');
 const projectTasks = taskManager.tasks.filter(task => task.projectID === clickedID);
-console.log(projectTasks)
-projectTasks.forEach(task => {
-    const li = document.createElement('li');
-    console.log(task.title)
-    li.textContent = task.title;
+const projectContent = document.createElement('div');
+projectContainer.append(projectContent);
 
-    ul.append(li);
+// Create Header for Display
+const headerCard = document.createElement('div');
+    headerCard.classList.add('itemCard', 'headerCard');
+    projectContent.append(headerCard);
+
+const headerTitle = document.createElement('h2');
+    headerTitle.classList.add('itemTitle', 'headerTitle');
+    headerTitle.textContent = 'Task';
+    headerCard.append(headerTitle);
+
+const headerDate = document.createElement('h2');
+    headerDate.classList.add('itemDate', 'headerDate');
+    headerDate.textContent = 'Do By:'
+    headerCard.append(headerDate);
+
+projectTasks.forEach((task, index) => {
+    const listItemCard = document.createElement('div');
+    listItemCard.classList.add('itemCard');
+    listItemCard.setAttribute('id', `card${index + 1}`);
+    listItemCard.dataset.id = task.id;
+
+    listItemCard.addEventListener('click', (event) => {
+        const clickedTaskID = event.currentTarget.dataset.id;
+        showClickedItem(clickedTaskID)
+    })
+
+    const listItemTitle = document.createElement('h3');
+    listItemTitle.classList.add('itemTitle', 'info');
+    listItemTitle.textContent = task.title;
+
+    const itemDate = document.createElement('h4');
+    itemDate.classList.add('itemDate', 'info');
+    itemDate.textContent = task.dueDate;
+
+    projectContent.append(listItemCard);
+    listItemCard.append(listItemTitle, itemDate);
 });
-projectContent.classList.add('projectContent', 'popupContent');
 
+projectContent.classList.add('projectContent');
+};
 
-
-projectOverlay.addEventListener('click', (event) => {
-    if (event.target === projectOverlay) {
-        projectOverlay.remove()
-    }
-})
-document.body.append(projectOverlay)
-projectOverlay.append(projectContent)
-projectContent.append(ul);
-}
-
-function showClickedItem() {
+function showClickedItem(clickedTaskID) {
 const itemOverlay = document.createElement('div');
 itemOverlay.classList.add('itemOverlay', 'popupOverlay');
 const itemContent = document.createElement('div');
-itemContent.textContent = 'check 1, 2, 3';
+const clickedItem = taskManager.tasks.find(clickedTask => clickedTask.id === clickedTaskID)
 itemContent.classList.add('itemContent', 'popupContent');
+
+// Item Title
+const itemName = document.createElement('h2');
+itemName.classList.add('itemName');
+itemName.textContent = clickedItem.title;
+
+// Item Description
+const itemDescription = document.createElement('textarea');
+itemDescription.classList.add('itemDescription');
+itemDescription.value = clickedItem.description;
+
+// Save Button
+const saveButton = document.createElement('button');
+saveButton.classList.add('saveButton');
+saveButton.textContent = 'Save';
+
+saveButton.addEventListener('click', () => {
+    clickedItem.description = itemDescription.value;
+})
 
 itemOverlay.addEventListener('click', (event) => {
     if (event.target === itemOverlay) {
+        clickedItem.description = itemDescription.value;
         itemOverlay.remove()
     }
 })
 document.body.append(itemOverlay);
 itemOverlay.append(itemContent);
-
-    console.log('you clicked an item');
-}
+itemContent.append(
+    itemName,
+    itemDescription,
+    saveButton,
+);
+    return clickedItem
+};
 
 export { showAllTasks };
 export { showProjects };
-export { showClickedProject };
+export { showProjectTasks };
