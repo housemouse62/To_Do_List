@@ -63,7 +63,17 @@ class TaskManager {
         }
 
         return newTask;
-} 
+}
+    deleteTask(taskID) {
+        console.log(taskManager.tasks)
+        const arr = taskManager.tasks
+        const newArray = arr.filter((item) => item.id === taskID)
+        console.log(newArray)
+    }
 }
 
 export const taskManager = new TaskManager();
+const object = taskManager.tasks
+console.log(taskManager.tasks)
+console.log(object)
+taskManager.deleteTask();

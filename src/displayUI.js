@@ -66,6 +66,11 @@ const projectListDiv = document.createElement('div');
     projectListDiv.className = 'projectListDiv';
     projectContainer.append(projectListDiv);
 
+const projectListHeader = document.createElement('h2');
+    projectListHeader.className = 'projectListHeader';
+    projectListHeader.textContent = 'Projects';
+    projectListDiv.append(projectListHeader);
+
 //Display the projects
 taskManager.projects.forEach((item, index) => {
     const projectListItemCard = document.createElement('div');
@@ -95,8 +100,6 @@ taskManager.projects.forEach((item, index) => {
 // Display Tasks For A Clicked Project
 function showProjectTasks(clickedID, projectContainer) {
     
-// const projectOverlay = document.createElement('div');
-// projectOverlay.classList.add('projectOverlay', 'popupOverlay');
 const projectTasks = taskManager.tasks.filter(task => task.projectID === clickedID);
 const projectContent = document.createElement('div');
 projectContainer.append(projectContent);
@@ -155,9 +158,20 @@ itemName.classList.add('itemName');
 itemName.textContent = clickedItem.title;
 
 // Item Description
+const itemDescriptionTitle = document.createElement('h4');
+itemDescriptionTitle.textContent = 'Description:';
+itemDescriptionTitle.classList.add('taskDescription');
 const itemDescription = document.createElement('textarea');
 itemDescription.classList.add('itemDescription');
 itemDescription.value = clickedItem.description;
+
+// Item Notes
+const itemNotesTitle = document.createElement('h4');
+itemNotesTitle.textContent = 'Notes:';
+itemNotesTitle.classList.add('taskNotes');
+const itemNotes = document.createElement('textarea');
+itemNotes.classList.add('itemNotes');
+itemNotes.value = clickedItem.notes;
 
 // Save Button
 const saveButton = document.createElement('button');
@@ -166,11 +180,13 @@ saveButton.textContent = 'Save';
 
 saveButton.addEventListener('click', () => {
     clickedItem.description = itemDescription.value;
+    clickedItem.notes = itemNotes.value;
 })
 
 itemOverlay.addEventListener('click', (event) => {
     if (event.target === itemOverlay) {
         clickedItem.description = itemDescription.value;
+        clickedItem.notes = itemNotes.value;
         itemOverlay.remove()
     }
 })
@@ -178,7 +194,10 @@ document.body.append(itemOverlay);
 itemOverlay.append(itemContent);
 itemContent.append(
     itemName,
+    itemDescriptionTitle,
     itemDescription,
+    itemNotesTitle,
+    itemNotes,
     saveButton,
 );
     return clickedItem

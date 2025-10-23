@@ -24,9 +24,22 @@
     grid-template-columns: 1fr 1fr;
 }
 
+.projectContent {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
 .projectListDiv {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    border-right: dotted black 2px;
+    height: 90vh;
+}
+
+.projectListHeader {
+    text-decoration: underline;
 }
 
 .projectOverlay {
@@ -45,16 +58,6 @@
     pointer-events: all;
     transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
 }
-/*
-.projectContent {
-    max-width: 600px;
-    width: 90%;
-    max-height: 90vh;
-    padding: 2rem;
-    overflow-y: auto;
-    background-color: white;
-}
-*/
 
 .itemOverlay {
     display: flex;
@@ -73,13 +76,21 @@
     transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
 }
 
+.taskDescription {
+    text-decoration: underline;
+    font-weight: bold;
+}
 .itemContent {
-
+    display: flex;
+    flex-direction: column;
     max-width: 600px;
     width: 90%;
     max-height: 90vh;
     padding: 2rem;
     overflow-y: auto;
     background-color: white;
-   
+}
+
+.itemDescription {
+    border: none;
 }
