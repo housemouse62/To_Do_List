@@ -1,4 +1,5 @@
 import "./displayUI.css";
+import { sideNavDiv } from "./sidenav";
 import { taskManager } from "./taskData";
 
 
@@ -31,6 +32,7 @@ taskManager.tasks.forEach((item, index) => {
     listItemCard.classList.add('itemCard');
     listItemCard.setAttribute('id', `card${index + 1}`);
     listItemCard.dataset.id = item.id;
+
     listItemCard.addEventListener('click', (event) => {
         const clickedTaskID = event.currentTarget.dataset.id;
         showClickedItem(clickedTaskID)
@@ -47,7 +49,7 @@ taskManager.tasks.forEach((item, index) => {
     listDiv.append(listItemCard);
     listItemCard.append(
         listItemTitle,
-        itemDate
+        itemDate,
     );
     });
 };
@@ -181,8 +183,28 @@ saveButton.textContent = 'Save';
 saveButton.addEventListener('click', () => {
     clickedItem.description = itemDescription.value;
     clickedItem.notes = itemNotes.value;
+    itemOverlay.remove()
 })
+// Delete Button
+const deleteButton = document.createElement('button');
+    deleteButton.classList.add('deleteButton');
+    deleteButton.textContent = 'delete';
 
+deleteButton.addEventListener('click', () => {
+    const mainPanel = document.querySelector('.mainPanel');
+    const taskElement = document.querySelector(`[data-id="${clickedItem.id}"]`);
+
+    taskElement.classList.add('removing');
+
+    setTimeout(() => {
+        taskManager.deleteTask(clickedItem.id)
+        mainPanel.innerHTML = '';
+        showAllTasks(mainPanel);
+        itemOverlay.remove();
+    }, 300);
+    });
+
+// Close Window when click on outside the popup box
 itemOverlay.addEventListener('click', (event) => {
     if (event.target === itemOverlay) {
         clickedItem.description = itemDescription.value;
@@ -199,6 +221,7 @@ itemContent.append(
     itemNotesTitle,
     itemNotes,
     saveButton,
+    deleteButton,
 );
     return clickedItem
 };

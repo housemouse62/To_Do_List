@@ -40,6 +40,7 @@ class TaskManager {
     }
 
     addTask(title, description, notes, projectName, dueDate, priority) {
+
         let projectObj = this.projects.find(p => p.name === projectName);
 
         if (!projectObj && projectName && projectName !== 'none') {
@@ -55,7 +56,25 @@ class TaskManager {
             priority
         );
 
+        // load existing tasks from localStorage to check for duplicates
+        const storageTaskArray = JSON.parse(localStorage.getItem('storageTaskArray')) || [];
+       
+        const duplicateExists = storageTaskArray.some(task =>
+            task.title === title &&
+            task.description === newTask.description &&
+            task.notes === newTask.notes &&
+            task.dueDate === newTask.dueDate &&
+            task.priority === newTask.priority
+        );
+
+        if (duplicateExists) {
+        console.log(`Duplicate task "${title}" detected - not adding`);
+        return null;
+        }
+
+        // add to memory & localStorage
         this.tasks.push(newTask);
+        this.addTaskToLocalStorage(newTask)
 
         if (projectObj) {
             projectObj.addTask(newTask);
@@ -64,11 +83,44 @@ class TaskManager {
 
         return newTask;
 }
+
     deleteTask(taskID) {
-        console.log(taskManager.tasks)
-        const arr = taskManager.tasks
-        const newArray = arr.filter((item) => item.id === taskID)
-        console.log(newArray)
+        const arr = this.tasks;
+        const unwantedTask = arr.find((item) => item.id === taskID);
+        if (!unwantedTask) return;
+
+        const index = arr.indexOf(unwantedTask);
+        if (index > -1) arr.splice(index, 1);
+
+        let storageTaskArray = JSON.parse(localStorage.getItem('storageTaskArray')) || [];
+        storageTaskArray = storageTaskArray.filter(item => item.id !== taskID);
+        localStorage.setItem('storageTaskArray', JSON.stringify(storageTaskArray));
+
+        console.log(`Deleted task with ID ${taskID}`);
+    }
+
+
+    addTaskToLocalStorage(storageTask) {
+        console.log(storageTask)
+            let storageTaskArray = JSON.parse(localStorage.getItem('storageTaskArray')) || [];
+            console.log('Current localStorage contents:', storageTaskArray)
+            storageTaskArray.push(storageTask);
+            localStorage.setItem('storageTaskArray', JSON.stringify(storageTaskArray));
+            console.log('Added task:', storageTask);
+            console.log('Updated localStoreage contents:', JSON.parse(localStorage.getItem('storageTaskArray')))
+    }
+
+    loadTasksFromLocalStorage() {
+        const stored = localStorage.getItem('storageTaskArray');
+        if (!stored) return [];
+
+        try {
+            const tasks = JSON.parse(stored);
+            return Array.isArray(tasks) ? tasks : [];
+        } catch (error) {
+            console.error('Error parsing localStorage:', error);
+            return [];
+        }
     }
 }
 

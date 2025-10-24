@@ -22,27 +22,27 @@ content.append(
     sideBar,
 );
 
+function seedDemoTasks() {
 taskManager.addTask('Eat Breakfast', 'Oats & Nuts', 'With oat milk?', 'This Morning', '2025-10-20')
 taskManager.addTask('Check Bike', 'Tires inflated?', 'Ready to go?',  'This Morning', '2025-10-20')
 taskManager.addTask('Head out to work', 'By 8:15', 'Or 8:20 if possible', 'This Morning', '2025-10-20')
 taskManager.addTask('Go Running', 'After Work', 'If possible', 'This Afternoon', '2025-10-20')
+};
 
 console.log(taskManager.projects)
 console.log(taskManager.tasks)
 sideNavDiv(sideNav);
 addTaskDisplay(sideBar);
-showAllTasks(mainPanel);
 
+document.addEventListener('DOMContentLoaded', () => {
+    const mainPanel = document.querySelector('.mainPanel');
+    const storedTasks = taskManager.loadTasksFromLocalStorage();
 
-
-
-
-
-
-
-
-
-
-
-console.log(greeting)
-
+    if (storedTasks.length > 0) {
+        taskManager.tasks = storedTasks;
+    } else {
+        seedDemoTasks()
+        console.log('No stored tasks found - seeded demo tasks');
+    }
+    showAllTasks(mainPanel)
+    });

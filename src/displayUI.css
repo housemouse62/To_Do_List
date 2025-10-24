@@ -6,6 +6,15 @@
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
+
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.itemCard.removing {
+    opacity: 0;
+    transform: translate3d(42px, 62px, -135px);
 }
 
 .headerCard {
