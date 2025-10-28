@@ -1,8 +1,5 @@
 "use strict";
 
-import { addTaskDisplay } from "./createTaskUI";
-import { addProjectOptions } from "./createTaskUI";
-
 class Project {
     constructor(name, id = crypto.randomUUID()) {
         this.name = name;
@@ -157,6 +154,4 @@ if (storedTasks.length > 0) {
 };
 
 const object = taskManager.tasks
-console.log(taskManager.tasks)
-console.log(object)
 taskManager.deleteTask();

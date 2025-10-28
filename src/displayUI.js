@@ -1,5 +1,5 @@
+import { addTaskDisplay } from "./createTaskUI";
 import "./displayUI.css";
-import { sideNavDiv } from "./sidenav";
 import { taskManager } from "./taskData";
 
 
@@ -41,6 +41,10 @@ taskManager.tasks.forEach((item, index) => {
     const listItemTitle = document.createElement('h3');
     listItemTitle.classList.add('itemTitle', 'info');
     listItemTitle.textContent = `${item.title}`;
+
+     if (item.priority === true) {
+        listItemTitle.classList.add('taskPriority')
+    }
 
     const itemDate = document.createElement('h4')
     itemDate.classList.add('itemDate', 'info');
@@ -161,6 +165,14 @@ const itemName = document.createElement('h2');
 itemName.classList.add('itemName');
 itemName.textContent = clickedItem.title;
 
+// High Priority
+const aPriority = document.createElement('h3');
+aPriority.classList.add('aPriority');
+if (clickedItem.priority === true) {
+    aPriority.innerHTML = 'PRIORITY'
+    aPriority.classList.add('taskPriority')
+};
+
 // Item Description
 const itemDescriptionTitle = document.createElement('h4');
 itemDescriptionTitle.textContent = 'Description:';
@@ -218,6 +230,7 @@ document.body.append(itemOverlay);
 itemOverlay.append(itemContent);
 itemContent.append(
     itemName,
+    aPriority,
     itemDescriptionTitle,
     itemDescription,
     itemNotesTitle,

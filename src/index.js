@@ -29,8 +29,6 @@ function seedDemoTasks() {
     taskManager.addTask('Go Running', 'After Work', 'If possible', 'This Afternoon', '2025-10-20')
 };
 
-console.log(taskManager.projects)
-console.log(taskManager.tasks)
 sideNavDiv(sideNav);
 addTaskDisplay(sideBar);
 

@@ -85,6 +85,9 @@
     transition: opacity .3 ease-in-out, visibility .3s ease-in-out;
 }
 
+.taskPriority {
+    background-color: red;
+}
 .taskDescription {
     text-decoration: underline;
     font-weight: bold;

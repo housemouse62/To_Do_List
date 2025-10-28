@@ -154,7 +154,7 @@ const highPriorityBox = document.createElement('input');
 highPriorityBox.setAttribute('id', 'highPriority');
 highPriorityBox.setAttribute('type', 'checkbox');
 highPriorityBox.setAttribute('name', 'highPriority');
-highPriorityBox.setAttribute('value', 'true');
+highPriorityBox.setAttribute('value', 'highPriority');
 
 // add task button
 const addTaskButton = document.createElement('button');
@@ -166,7 +166,12 @@ addTaskButton.addEventListener('click', () => {
     const description = descriptionInput.value.trim();
     const notes = notesInput.value.trim();
     const dueDate = dueDateSelector.value;
-    const priority = highPriorityBox.value;
+    let priority = '';
+    if (highPriorityBox.checked) {
+        priority = true
+    } else {
+        priority = false
+    }
 
     let project = null;
     const projectSelection = projectSelect.value;
@@ -184,9 +189,6 @@ if (projectSelect.value === 'New Project' && addNewProjectField.value.trim() !==
 
 // refresh dropdown menu
     addProjectOptions();
-
-console.log(taskManager.tasks);
-console.log(taskManager.projects);
 
 // resets all fields/dropdown upon submission
 taskNameInput.value = '';
