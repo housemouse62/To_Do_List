@@ -2,69 +2,10 @@ import './createTaskUI.css';
 import { showAllTasks } from './displayUI';
 import { taskManager } from './taskData';
 
-const addTaskDisplay = function(mainContainer) {
-mainContainer.innerHTML = '';
+function addProjectOptions() {
+    const projectSelect = document.querySelector('#projectDropDown');
+    if (!projectSelect) return;
 
-// create div area
-const addTaskDisplayDiv = document.createElement('div');
-addTaskDisplayDiv.className = 'addTaskDisplayDiv';
-mainContainer.append(addTaskDisplayDiv);
-
-// div title
-const areaTitle = document.createElement('h2');
-areaTitle.className = 'areaTitle';
-areaTitle.textContent = 'Add A Task';
-
-// task name input
-const taskNameLabel = document.createElement('label');
-taskNameLabel.setAttribute('for', 'taskName');
-taskNameLabel.innerHTML = 'Task Name:';
-
-const taskNameInput = document.createElement('input');
-taskNameInput.setAttribute('id', 'taskName');
-taskNameInput.setAttribute('type', 'text');
-taskNameInput.setAttribute('name', 'taskName');
-
-// description input
-const descriptionLabel = document.createElement('label');
-descriptionLabel.setAttribute('for', 'description');
-descriptionLabel.innerHTML = 'Description:';
-
-const descriptionInput = document.createElement('input');
-descriptionInput.setAttribute('id', 'description');
-descriptionInput.setAttribute('type', 'text');
-descriptionInput.setAttribute('name', 'description');
-descriptionInput.value = '';
-
-// notes
-const notesLabel = document.createElement('label');
-notesLabel.setAttribute('for', 'notes');
-notesLabel.innerHTML = 'Notes:';
-
-const notesInput = document.createElement('input');
-notesInput.setAttribute('id', 'notes');
-notesInput.setAttribute('type', 'text');
-notesInput.setAttribute('name', 'notes');
-
-// existing project checkbox
-const existingLabel = document.createElement('label');
-existingLabel.setAttribute('for', 'existing');
-existingLabel.innerHTML = "Part of a Project?";
-
-const existingProject = document.createElement('input');
-existingProject.setAttribute('id', 'existing');
-existingProject.setAttribute('type', 'checkbox');
-existingProject.setAttribute('value', 'existing');
-existingProject.setAttribute('name', 'existing');
-
-// existing project selection drop down
-const projectSelect = document.createElement('select');
-projectSelect.className = 'projectDropDown';
-projectSelect.setAttribute('id', 'projectDropDown');
-projectSelect.setAttribute('name', 'projectDropDown');
-projectSelect.style.visibility = 'hidden';
-
- function addProjectOptions() {
     projectSelect.innerHTML = '';
 
     const defaultOptions = [
@@ -90,9 +31,79 @@ projectSelect.style.visibility = 'hidden';
         projectSelect.append(option);
     }
     });
- }
+ };
 
- addProjectOptions();
+const addTaskDisplay = function(mainContainer) {
+mainContainer.innerHTML = '';
+
+// create div area
+const addTaskDisplayDiv = document.createElement('div');
+addTaskDisplayDiv.className = 'addTaskDisplayDiv';
+mainContainer.append(addTaskDisplayDiv);
+
+// div title
+const areaTitle = document.createElement('h2');
+areaTitle.className = 'areaTitle';
+areaTitle.textContent = 'Add A Task';
+
+// task name input
+const taskNameLabel = document.createElement('label');
+taskNameLabel.setAttribute('for', 'taskName');
+taskNameLabel.innerHTML = 'Task Name:';
+taskNameLabel.classList.add('inputLabel', 'nameLabel');
+
+const taskNameInput = document.createElement('input');
+taskNameInput.classList.add('inputField', 'nameInput');
+taskNameInput.setAttribute('id', 'taskName');
+taskNameInput.setAttribute('type', 'text');
+taskNameInput.setAttribute('name', 'taskName');
+
+// description input
+const descriptionLabel = document.createElement('label');
+descriptionLabel.setAttribute('for', 'description');
+descriptionLabel.innerHTML = 'Description:';
+descriptionLabel.classList.add('inputLabel');
+
+const descriptionInput = document.createElement('textarea');
+descriptionInput.classList.add('inputField', 'descriptionField')
+descriptionInput.setAttribute('id', 'description');
+descriptionInput.setAttribute('type', 'text');
+descriptionInput.setAttribute('name', 'description');
+descriptionInput.value = '';
+
+// notes
+const notesLabel = document.createElement('label');
+notesLabel.setAttribute('for', 'notes');
+notesLabel.innerHTML = 'Notes:';
+notesLabel.classList.add('inputLabel');
+
+const notesInput = document.createElement('textarea');
+notesInput.classList.add('inputField')
+notesInput.setAttribute('id', 'notes');
+notesInput.setAttribute('type', 'text');
+notesInput.setAttribute('name', 'notes');
+
+// existing project checkbox
+const existingLabel = document.createElement('label');
+existingLabel.setAttribute('for', 'existing');
+existingLabel.innerHTML = "Part of a Project?";
+existingLabel.classList.add('inputLabel');
+
+const existingProject = document.createElement('input');
+existingProject.setAttribute('id', 'existing');
+existingProject.setAttribute('type', 'checkbox');
+existingProject.setAttribute('value', 'existing');
+existingProject.setAttribute('name', 'existing');
+existingProject.classList.add('checkbox');
+
+// existing project selection drop down
+const projectSelect = document.createElement('select');
+projectSelect.className = 'projectDropDown';
+projectSelect.setAttribute('id', 'projectDropDown');
+projectSelect.setAttribute('name', 'projectDropDown');
+projectSelect.style.visibility = 'hidden';
+
+ //addProjectOptions();
 
 // add new project name
 const addNewProjectField = document.createElement('input');
@@ -101,6 +112,7 @@ addNewProjectField.setAttribute('type', 'text');
 addNewProjectField.setAttribute('name', 'addNewProject');
 addNewProjectField.placeholder = 'new project name';
 addNewProjectField.style.visibility = 'hidden';
+addNewProjectField.classList.add('projectName');
 
 //logic to show/hide addNewProjectField
 projectSelect.addEventListener("change", (event) => {
@@ -124,16 +136,19 @@ existingProject.addEventListener('change', () => {
 const dueDateLabel = document.createElement('label');
 dueDateLabel.setAttribute('for', 'dueDate');
 dueDateLabel.innerHTML = 'Due Date:';
+dueDateLabel.classList.add('inputLabel');
 
 const dueDateSelector = document.createElement('input');
 dueDateSelector.setAttribute('id', 'dueDate');
 dueDateSelector.setAttribute('type', 'date');
 dueDateSelector.setAttribute('name', 'dueDate');
+dueDateSelector.classList.add('dueDateSelector');
 
 // high priority
 const highPriorityLabel = document.createElement('label');
 highPriorityLabel.setAttribute('for', 'highPriority');
 highPriorityLabel.innerHTML = 'High Priority?';
+highPriorityLabel.classList.add('inputLabel');
 
 const highPriorityBox = document.createElement('input');
 highPriorityBox.setAttribute('id', 'highPriority');
@@ -212,3 +227,4 @@ addTaskDisplayDiv.append(
 
 
 export { addTaskDisplay };
+export { addProjectOptions };

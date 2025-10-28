@@ -1,4 +1,5 @@
 import { showAllTasks, showProjects } from "./displayUI";
+import Logo from './logo.png';
 import './sidenav.css';
 
 // Navigation Sidebar
@@ -7,15 +8,18 @@ const buttonContainer = document.createElement('div');
 buttonContainer.className = 'buttonContainer';
 container.append(buttonContainer);
 
+const logo = new Image();
+logo.src = Logo;
+logo.classList.add('logo');
 const allTasks = document.createElement('button');
 allTasks.classList.add('seeTasks', 'allTasks');
 allTasks.textContent = 'All Tasks';
-const nextSeven = document.createElement('button');
-nextSeven.classList.add('seeTasks', 'nextSeven');
-nextSeven.textContent = 'Next 7 Days';
-const nextMonth = document.createElement('button');
-nextMonth.classList.add('seeTasks', 'nextMonth');
-nextMonth.textContent = 'Next Month';
+// const nextSeven = document.createElement('button');
+// nextSeven.classList.add('seeTasks', 'nextSeven');
+// nextSeven.textContent = 'Next 7 Days';
+// const nextMonth = document.createElement('button');
+// nextMonth.classList.add('seeTasks', 'nextMonth');
+// nextMonth.textContent = 'Next Month';
 const space = document.createElement('div');
 space.className = 'space';
 const projectsButton = document.createElement('button');
@@ -23,9 +27,10 @@ projectsButton.classList.add('seeTasks', 'projectsButton');
 projectsButton.textContent = "Projects";
 
 buttonContainer.append(
+    logo,
     allTasks,
-    nextSeven,
-    nextMonth,
+    // nextSeven,
+    // nextMonth,
     space,
     projectsButton);
 

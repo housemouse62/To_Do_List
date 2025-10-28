@@ -1,6 +1,7 @@
 "use strict";
 
 import { addTaskDisplay } from "./createTaskUI";
+import { addProjectOptions } from "./createTaskUI";
 
 class Project {
     constructor(name, id = crypto.randomUUID()) {
@@ -16,12 +17,14 @@ class Project {
 
 // Item Creator
 class ToDoItem {
-    constructor(title, description, notes, projectID, dueDate, priority, id = crypto.randomUUID()) {
+    constructor(title, description, notes, projectID, projectName, 
+        dueDate, priority, id = crypto.randomUUID()) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.notes = notes;
         this.projectID = projectID;
+        this.projectName = projectName;
         this.dueDate = dueDate;
         this.priority = priority;
     }
@@ -52,6 +55,7 @@ class TaskManager {
             description, 
             notes, 
             projectObj ? projectObj.id : null,
+            projectObj ? projectObj.name : 'none',
             dueDate,
             priority
         );
@@ -59,7 +63,7 @@ class TaskManager {
         // load existing tasks from localStorage to check for duplicates
         const storageTaskArray = JSON.parse(localStorage.getItem('storageTaskArray')) || [];
        
-        const duplicateExists = storageTaskArray.some(task =>
+        const taskDuplicateExists = storageTaskArray.some(task =>
             task.title === title &&
             task.description === newTask.description &&
             task.notes === newTask.notes &&
@@ -67,7 +71,7 @@ class TaskManager {
             task.priority === newTask.priority
         );
 
-        if (duplicateExists) {
+        if (taskDuplicateExists) {
         console.log(`Duplicate task "${title}" detected - not adding`);
         return null;
         }
@@ -116,7 +120,27 @@ class TaskManager {
 
         try {
             const tasks = JSON.parse(stored);
-            return Array.isArray(tasks) ? tasks : [];
+            if (!Array.isArray(tasks)) return [];
+            
+            this.projects = [];
+            const projectsMap = new Map();
+
+            tasks.forEach(task => {
+                if(task.projectID && task.projectName && task.projectName !== 'none') {
+                    let project = projectsMap.get(task.projectID);
+                    if (!project) {
+                        project = new Project(task.projectName, task.projectID);
+                        projectsMap.set(task.projectID, project);
+                        this.projects.push(project);
+                    }
+                    project.addTask(task);
+                }
+            });
+
+           
+
+            console.log('Rebuilt projects:', this.projects);
+            return tasks;
         } catch (error) {
             console.error('Error parsing localStorage:', error);
             return [];
@@ -124,7 +148,14 @@ class TaskManager {
     }
 }
 
+
 export const taskManager = new TaskManager();
+
+const storedTasks = taskManager.loadTasksFromLocalStorage();
+if (storedTasks.length > 0) {
+    console.log('Loaded tasks from localStorage on startup:', storedTasks);
+};
+
 const object = taskManager.tasks
 console.log(taskManager.tasks)
 console.log(object)

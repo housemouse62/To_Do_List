@@ -52,6 +52,7 @@ taskManager.tasks.forEach((item, index) => {
         itemDate,
     );
     });
+    localStorage.setItem('currentView', 'allTasks')
 };
 
 // All Projects Display
@@ -97,13 +98,15 @@ taskManager.projects.forEach((item, index) => {
         projectListItemTitle,
     );
     });
+
+    localStorage.setItem('currentView', 'allProjects');
 };
 
 // Display Tasks For A Clicked Project
 function showProjectTasks(clickedID, projectContainer) {
-    
 const projectTasks = taskManager.tasks.filter(task => task.projectID === clickedID);
 const projectContent = document.createElement('div');
+projectContent.classList.add('projectContent');
 projectContainer.append(projectContent);
 
 // Create Header for Display
@@ -144,7 +147,6 @@ projectTasks.forEach((task, index) => {
     listItemCard.append(listItemTitle, itemDate);
 });
 
-projectContent.classList.add('projectContent');
 };
 
 function showClickedItem(clickedTaskID) {

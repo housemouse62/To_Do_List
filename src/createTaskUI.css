@@ -22,3 +22,75 @@
     border-radius: 40px;
     margin: 10px;
 }
+
+.areaTitle {
+    margin: 20px 0 10px 0;
+    font-size: 35px;
+}
+
+.inputLabel {
+    font-size: 25px;
+    margin: 20px 0 1px;
+}
+
+.inputField {
+    width: 200px;
+    height: 75px;
+    border: 1px #563478 solid;
+    border-radius: 8px;
+    padding: 5px 0 2px 7px;
+}
+
+.nameInput {
+    height: 30px;
+    border: 1px #563478 solid;
+    border-radius: 5px;
+    padding-top: 0;
+
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin: 10px;
+    border: 1px #563478 solid;
+
+}
+
+.projectDropDown {
+    width: 150px;
+    height: 30px;
+    border: 1px #563478 solid;
+    border-radius: 8px;
+    padding: 0 0 0 7px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.projectName {
+    width: 200px;
+    height: 30px;
+    border: 1px #563478 solid;
+    border-radius: 8px;
+    padding: 0 0 2px 7px;
+    font-size: 15px;
+}
+
+.dueDateSelector {
+    width: 150px;
+    height: 30px;
+    border: 1px #563478 solid;
+    border-radius: 8px;
+    padding: 0 0 0 7px;
+    font-size: 15px;
+}
+
+.addTaskButton {
+    margin: 10px;
+    font-family: 'nexaextra_light';
+    font-size: 20px;
+    border: 1px #563478 solid;
+    background-color: white;
+    border-radius: 30px;
+    min-width: 175px;
+    height: 50px;
+}
