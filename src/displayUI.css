@@ -1,11 +1,12 @@
 .itemCard {
     display: grid;
-    justify-items: center;
+    justify-items: stretch;
     grid-template-columns: 1fr 1fr;
     width: auto;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
+    padding: 2px;
 
     transition: all 0.3s ease;
     opacity: 1;
@@ -18,8 +19,14 @@
 }
 
 .headerCard {
+    display: grid;
     border-top: 1px solid black;
-    border-bottom: 2px solid black;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    width: auto;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .info {
@@ -86,11 +93,35 @@
 }
 
 .taskPriority {
-    background-color: red;
+    background: red;
+    background-clip: padding-box;
 }
+
 .taskDescription {
     text-decoration: underline;
     font-weight: bold;
+}
+
+.taskNotes {
+    text-decoration: underline;
+}
+
+.itemNotes {
+    border: none;
+}
+
+.buttonDiv {
+    display: flex;
+    gap: 10px;
+}
+.saveButton,
+.deleteButton {
+    height: 30px;
+    width: 80px;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-size: 14px;
+    gap: 10px;
 }
 .itemContent {
     display: flex;

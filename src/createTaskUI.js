@@ -215,14 +215,14 @@ addTaskDisplayDiv.append(
     descriptionInput,
     notesLabel,
     notesInput,
-    existingLabel,
-    existingProject,
-    projectSelect,
-    addNewProjectField,
     dueDateLabel,
     dueDateSelector,
     highPriorityLabel,
     highPriorityBox,
+    existingLabel,
+    existingProject,
+    projectSelect,
+    addNewProjectField,
     addTaskButton,
 )
 };

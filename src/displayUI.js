@@ -14,7 +14,7 @@ const listDiv = document.createElement('div');
 
 // Create Header for Display
 const headerCard = document.createElement('div');
-    headerCard.classList.add('itemCard', 'headerCard');
+    headerCard.classList.add('headerCard');
     listDiv.append(headerCard);
 
 const headerTitle = document.createElement('h2');
@@ -115,7 +115,7 @@ projectContainer.append(projectContent);
 
 // Create Header for Display
 const headerCard = document.createElement('div');
-    headerCard.classList.add('itemCard', 'headerCard');
+    headerCard.classList.add('headerCard');
     projectContent.append(headerCard);
 
 const headerTitle = document.createElement('h2');
@@ -142,6 +142,9 @@ projectTasks.forEach((task, index) => {
     const listItemTitle = document.createElement('h3');
     listItemTitle.classList.add('itemTitle', 'info');
     listItemTitle.textContent = task.title;
+    if (task.priority === true) {
+        listItemTitle.classList.add('taskPriority')
+    }
 
     const itemDate = document.createElement('h4');
     itemDate.classList.add('itemDate', 'info');
@@ -189,6 +192,10 @@ const itemNotes = document.createElement('textarea');
 itemNotes.classList.add('itemNotes');
 itemNotes.value = clickedItem.notes;
 
+// Button Div
+const buttonDiv = document.createElement('div');
+buttonDiv.className = 'buttonDiv';
+
 // Save Button
 const saveButton = document.createElement('button');
 saveButton.classList.add('saveButton');
@@ -202,7 +209,7 @@ saveButton.addEventListener('click', () => {
 // Delete Button
 const deleteButton = document.createElement('button');
     deleteButton.classList.add('deleteButton');
-    deleteButton.textContent = 'delete';
+    deleteButton.textContent = 'Delete';
 
 deleteButton.addEventListener('click', () => {
     const mainPanel = document.querySelector('.mainPanel');
@@ -235,6 +242,10 @@ itemContent.append(
     itemDescription,
     itemNotesTitle,
     itemNotes,
+    buttonDiv,
+);
+
+buttonDiv.append(
     saveButton,
     deleteButton,
 );
