@@ -40,7 +40,8 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.projectContent {
+.projectContent,
+.projectListDiv {
     display: flex;
     flex-direction: column;
     margin-left: 20px;
@@ -54,8 +55,14 @@
     height: 90vh;
 }
 
-.projectListHeader {
-    text-decoration: underline;
+.projectListHeader,
+.projectListItemCard {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .projectOverlay {
