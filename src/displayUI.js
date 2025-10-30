@@ -173,7 +173,7 @@ const aPriority = document.createElement('h3');
 aPriority.classList.add('aPriority');
 if (clickedItem.priority === true) {
     aPriority.innerHTML = 'PRIORITY'
-    aPriority.classList.add('taskPriority')
+    aPriority.classList.add('taskPriority', 'popped')
 };
 
 // Item Description
